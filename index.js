@@ -41,7 +41,19 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
     sanapshot.forEach((childsnap) => {
     res.push(childsnap.val());
     });
-    comments.add_comments();
+    comments.set_cmt_sh();
+});
+firebase.database().ref("CurEvent").on('value',(val)=>{
+    document.getElementById("cur_event").innerHTML=val.val();
+});
+var sch=[];
+firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
+    sch=[];
+    sanapshot.forEach((childsnap) => {
+    sch.push(childsnap.val());
+    });
+    sch.sort((a,b)=>{return comments.convert(a.when)<comments.convert(b.when)?-1:1});
+    comments.add_schedule();
 });
 var OnlineUsers;
 firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
@@ -52,7 +64,7 @@ firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
     console.log("Users Online : "+OnlineUsers);
 });
 var ref=firebase.database().ref('ActiveUsers/').push({
-    platform:"web-github.io"
+    platform:"web-web.app"
 });
 //console.log(ref.key);
 ref.onDisconnect().remove();
@@ -101,7 +113,8 @@ var comments={
         this.init_headphone();
     },
     add_comments(){
-        this.cbox.innerHTML="";
+        document.getElementsByClassName("imflex")[0].style.opacity=1;
+        document.getElementById("c_d").innerHTML=`<i class="fab fa-comments fa"></i>`;
         this.cmts.innerHTML="";
         for(var i=0;i<res.length;i++)
         {
@@ -117,28 +130,51 @@ var comments={
             </div>
             `;
         }
-        this.set_cmt_sh();
         this.scrollbot();
     },
-    getTimeFromDate(timestamp) {
-        var date = new Date(timestamp * 1000);
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-      
-        var time = new Date();
-        if(hours==0)hours="00";
-        if(hours!="00" && hours<10)hours="0"+hours;
-        if(minutes==0)minutes="00";
-        if(minutes!="00" && minutes<10)minutes="0"+minutes;
-        return hours+":"+minutes;
+    add_schedule(){
+        //[{"main":"Music Cloud","sub":"1000+ Songs","link":"images/favicon.png","when":""}
+        document.getElementsByClassName("imflex")[0].style.opacity=0;
+        document.getElementById("c_d").innerHTML=`<i class="fab fa-calendar fa"></i>`;
+        this.cmts.innerHTML="";
+        var today=[];
+        for(var i=0;i<sch.length;i++)
+        {
+            //var date=new Date(res[i].time).toLocaleTimeString();
+            var d=new Date(this.convert(sch[i].when));
+            var _d=new Date();
+            if(d.toDateString()==_d.toDateString()){
+                today.push(sch[i]);
+            }
+        }
+        for(var i=0;i<today.length;i++){ 
+            var d=new Date(this.convert(today[i].when));
+            this.cmts.innerHTML+=`
+            <div class="cele s">
+                <div class="df">
+                    <div class="ele n">${today[i].main}</div>
+                </div>
+                <div class="ele">${today[i].sub}</div>
+                <div class="ele">${d.toDateString()}</div>
+                <div class="ele">${d.toLocaleTimeString()}</div>
+            </div>
+            `;
+        }
+    },
+    convert(str){ 
+        var a=str.split(" ")[0]; 
+        var b=str.split(" ")[1]; 
+        var t=new Date(Number(a.split("-")[0]),Number(a.split("-")[1])-1,Number(a.split("-")[2]),Number(b.split(":")[0]),Number(b.split(":")[1]),0,0); 
+        var det=t.getTime(); 
+        return det; 
     },
     set_cmt_sh(){
         var temp=[];
         this.cbox.innerHTML="";
         var j=res.length-1;
-        for(var i=0;i<3;j--)
+        for(var i=0;i<3 && j>-1;j--)
         {
-            if(res[j].message.length>i)
+            if(res[j].message.length>0)
             {
                 temp.push(res[j]);
                 i++;
@@ -256,6 +292,17 @@ var comments={
         this.layer.style.zIndex="0";
         this.scrollbot();
         this.layer.style.background="#000000af";
+        comments.add_comments();
+    },
+    open_cal(){
+        if(this.isopen)return;
+        this.cmtbox.style.height="90vh";
+        this.isopen=true;
+        this.layer.style.zIndex="0";
+        this.scrollbot();
+        this.layer.style.background="#000000af";
+        comments.add_schedule();
+
     },
     scrollbot()
     {
@@ -488,8 +535,7 @@ var content={
             if(ht>w)
                 g1_imgs[i].children[0].children[0].style.height=ht+"px";
             else
-                g1_imgs[i].children[0].children[0].style.width=w+"px";
-            console.log(g1_imgs[i].children[0].children[0].src);
+                g1_imgs[i].children[0].children[0].style.width=w+"px";    
         }
     },
     async changeimg(newsrc,imgele)
@@ -546,7 +592,6 @@ var img_links=[
 function nextlink(_ref)
 {
     var next_index=_ref.vari+1;
-    console.log(_ref.vari);
     if(next_index==_ref.imgs)
         next_index=0;
     _ref.vari=next_index;
