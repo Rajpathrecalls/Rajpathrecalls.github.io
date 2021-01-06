@@ -402,6 +402,7 @@ body{
     margin: 2px;
     padding: 4px;
     border: 1px solid grey;
+    overflow:hidden;
 }
 .comment .cmts .cele .df{
     display: flex;
