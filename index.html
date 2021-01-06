@@ -57,7 +57,7 @@
                             <!--SYNC-->
                         </div>
                     </div>
-                    <div class="play"></div>
+                    <div class="play" onclick="comments.open_cal()"><i class="fab fa-calendar fa"></i></div>
                     <div class="play" onclick="comments.open()"><i class="fab fa-comments fa"></i></div>
                 </div>
                 <div class="head_i">
@@ -221,8 +221,11 @@
     <div class="layer" onclick="comments.close()">
     </div>
     <div class="comment">
+        <div class="bglayerc"></div>
         <div class="chead">
-            <i class="fab fa-comments fa"></i>
+            <div id="c_d">
+                <i class="fab fa-comments fa"></i>
+            </div>
             <div class="close" onclick="comments.close()">close</div>
         </div>
         <hr>
