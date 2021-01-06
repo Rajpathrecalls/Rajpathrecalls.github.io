@@ -1,0 +1,708 @@
+*:focus{
+    outline: none;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Alegreya', serif;
+    font-family: 'Alegreya Sans', sans-serif;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 80vh;
+    background: transparent;
+}
+.shrink{
+    width: 100%;
+    max-width: 800px;
+    background: #ffffffaf;
+}
+.ndiv{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    max-width: 800px;
+    background: black;
+    z-index: 2;
+}
+.ndiv .odiv{
+    width: 100%;
+}
+.ndiv .odiv .topbar{
+    display: flex;
+    direction: rtl;
+    background: #eee;
+}
+.ndiv .odiv .topbar .b{
+    margin: 5px;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ndiv .odiv .topbar .b span{
+    display: block;
+    height: 4px;
+    width: 40px;
+    background: black;
+    transition: all 0.5s;
+}
+.ndiv .odiv .topbar .b span::after,
+.ndiv .odiv .topbar .b span::before{
+    content: " ";
+    display: block;
+    height: 4px;
+    width: 40px;
+    background: black;
+    transform: translateY(11px);
+    transition: all 0.5s;
+}
+.ndiv .odiv .topbar .b span::before{
+    transform: translateY(-15px);
+}
+.ndiv .odiv .topbar .b.c span{
+    display: block;
+    height: 4px;
+    width: 40px;
+    background: transparent;
+}
+.ndiv .odiv .topbar .b.c span::after,
+.ndiv .odiv .topbar .b.c span::before{
+    content: " ";
+    display: block;
+    height: 4px;
+    width: 40px;
+    background: black;
+    transform: rotate(135deg) translateY(3px);
+}
+.ndiv .odiv .topbar .b.c span::before{
+    transform: rotate(-135deg) translateY(-3px);
+}
+.ndiv .odiv .mdiv{
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+.ndiv .odiv .mdiv .ele{
+    text-align: center;
+    padding: 10px;
+    background: #eee;
+}
+.fdiv{
+    margin: 3px;
+    margin-top: 40px;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fdiv .mob,
+.fdiv .mob .mobi{
+    border-radius: 20px;
+    min-width: 140px;
+    min-height: 280px;
+    border: 2px solid black;
+}
+.fdiv .mob .mobi{
+    min-width: 120px;
+    min-height: 260px;
+    background: #1c0305;
+}
+.fdiv .mob .mobi .mplay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 40px);
+    width: 100%;
+}
+.fdiv .mob .mobi .mplay .nplay{
+    display: block;
+    transform: translateY(-10px);
+}
+.fdiv .mob .mobi .mplay .nplay img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.fdiv .mob .mobi .mplay .nplay h4{
+    color: white;
+    padding: 10px 0px;
+    transform: translateY(14px);
+    margin-bottom: 5px;
+}
+.fdiv .mob .mobi .oplay{
+    display: inline-block;
+    padding: 12%;
+    font-size: 2rem;
+    margin-left: 50%;
+    background: white;
+    border-radius: 100%;
+    transform: translateX(-50%) translateY(10px);
+}
+.fdiv .mob .mobi .oplay i{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fdiv .mob .mobi .oplay i{
+    color: #1c0305;
+}
+#mobi{
+    position: absolute;
+    margin: 10px;
+    overflow: hidden;
+}
+#mobi .msg{
+    opacity: 0;
+    position: absolute;
+    bottom: 0px;
+    width: 90%;
+    padding: 5px;
+    text-align: center;
+    color: grey;
+    border: 1px solid grey;
+    border-radius: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7;
+}
+.fdiv .mob{
+    margin: 10px;
+}
+.fdiv .mob .mobi{
+    margin: 5px;
+}
+.fdiv .mob .head_i{
+    height: 10px;
+    border: 3px solid black;
+    border-top: none;
+    width: 10px;
+    position: absolute;
+    transform: translateY(1px);
+}
+.fdiv .mob .head_i .inil{
+    width: 100px;
+    height: 40px;
+    transform: translate(5px, 10px);
+}
+.fdiv .mob .head_i .inil img{
+    width: 100%;
+    height: 100%;
+}
+.fdiv .mob .mobbot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.fdiv .mob .mobbot .play{
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+.fdiv .mob .mobbot .play .sync{
+    opacity: 0;
+    position: absolute;
+    color: blue;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+.fdiv .mob .mobbot .play.s i{
+    border: 3px solid transparent;
+    border-radius: 50%;
+    border-bottom-color: black;
+    border-top-color: black;
+    transform: rotate(60deg);
+    color: white;
+}
+.fdiv .mob .absimg{
+    position: absolute;
+}
+.img_{
+    position: absolute;
+    width: 20%;
+    max-height: calc(55px);
+    left: 50%;
+    transform: translateX(calc(-100% + 4px)) translateY(-27.5px);
+    height: 67.5px;
+}
+.fdiv .g1{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fdiv .g1.img{
+    overflow: hidden;
+}
+.fdiv .g1.img .g1_img_abs{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.fdiv .g1.img .g1_img_abs img{
+    transition: all 0.4s;
+}
+.fdiv .g1 .con_df{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fdiv .g1 .con_df .ele{
+    padding: 4px;
+    margin: 0px 10px;
+    font-size: 1rem;
+}
+.fdiv .g1.l1{
+    width: 10%;
+    display: flex;
+    align-items: center;
+    height: 260px;
+}
+.fdiv .g1.l1 .wire{
+    position: absolute;
+    width: 10%;
+    border-radius: 50%;
+}
+.fdiv .g1.l1 .wire.r{
+    border-right: 3px solid black;
+    transform: translateY(-23px) translateX(-50%);
+}
+.fdiv .g1.l1 .wire.l{
+    border-left: 3px solid black;
+    transform: translateY(-23px) translateX(50%);
+}
+.fdiv .g1.l1 img{
+    position: absolute;
+    height: 310px;
+    width: 10%;
+    transform:  translateY(-20px);
+}
+.fdiv .g1.l1.l img{
+    transform:  translateY(-20px);
+}
+.fdiv .g1.l1.l{
+    justify-content: start;
+}
+.fdiv .g1.l1.r{
+    justify-content: end;
+}
+.fdiv .g1.c{
+    display: block;
+    width: 50%;
+}
+.fdiv .g1 p{
+    margin: 10px;
+}
+.fdiv .g1 li{
+    margin-left: 10%;
+}
+.fdiv .g1 .conhead{
+    padding: 2px;
+    display: flex;
+    margin: 2px;
+}
+.fdiv .g1 .conhead h3
+{
+    text-transform: uppercase;
+}
+.fdiv .g1.c p a{
+    color: blue;
+    text-decoration: underline;
+}
+.fdiv .othmob{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fdiv .othmob .othmobc .rrmobh .raj
+,.fdiv .othmob .othmobc .rrmobh .rec{
+    padding: 0px 5px;
+    font-size: 3rem;
+    color: #1c0305;;
+}
+.fdiv .othmob .othmobc .rrmobh .rec{
+    margin-left: 20px;
+}
+.fdiv .othmob .othmobc .rrmobh p{
+    margin-top: 10px;
+    font-weight: bold;
+}
+.fdiv .othmob .othmobc .cbox{
+    padding: 5px;
+    margin-top: 10px;
+}
+.fdiv .othmob .othmobc .cbox .cele__{
+    border: 1px solid #1c0305;
+    margin: 1px;
+    padding: 5px;
+    border-radius: 10px;
+    background: white;
+    font-size: 0.8em;
+}
+.fdiv .othmob .othmobc .cbox .cele__ .cname{
+    display: block;
+    color: black;
+    font-weight: bolder;
+    
+}
+.fdiv .othmob .othmobc .cbox .cele__ .df{
+    display: flex;
+}
+.fdiv .othmob .othmobc .cbox .cele__ .df .cmsg{
+    flex-grow: 1;
+}
+.fdiv.f{
+    height: 10px;
+}
+.comment{
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    width: 85%;
+    position: fixed;
+    background: white;
+    height: 0vh;
+    bottom: -10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.5s;
+}
+.comment .chead{
+    font-size: 2rem;
+    display: flex;
+}
+.comment .chead i{
+    flex-grow: 1;
+}
+.comment .chead .close{
+    margin: 0px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.comment .cmts{
+    height: 65vh;
+    overflow: scroll;
+}
+.comment .cmts .cele{
+    border-radius: 10px;
+    margin: 2px;
+    padding: 4px;
+    border: 1px solid grey;
+}
+.comment .cmts .cele .df{
+    display: flex;
+}
+.comment .cmts .cele .df .ele{
+    flex-grow: 1;
+}
+
+.comment .cmts .cele .ele.n{
+    font-weight: bolder;
+    z-index: 0;
+}
+.comment .editname{
+    border-radius: 20px;
+    border: 2px solid black;
+    top: -2px;
+    left: 0%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background: #000000af;
+}
+.comment .editname .cc{
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+}
+.comment .editname .clayer{
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+.comment .editname .cc input{
+    min-width: 300px;
+    margin: 15px 0px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+.comment .editname .cc .df{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    direction: rtl;
+    z-index: 10;
+}
+.comment .editname .cc .df .ele{
+    padding: 5px;
+    cursor: pointer;
+}
+.time{
+    opacity: 0.9;
+    font-size: 0.6rem;
+}
+.layer{
+    top: 0px;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+}
+::-webkit-scrollbar{
+    width: 2px;
+}
+.imflex{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.imflex input{
+    padding: 10px;
+    background: #ddd;
+    border-radius: 15px;
+    flex-grow: 1;
+    max-width: 500px;
+    border: 1px solid white;
+}
+#bt{
+    margin: 0px 10px;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 100%;
+}
+.joint.t1{
+    transform: translateY(-10px);
+}
+.joint span{
+    position: absolute;
+    display: block;
+    height: 4px;
+    width: 15%;
+    left: 50%;
+    background: linear-gradient(90deg,#6a040f,transparent);
+}
+.joint span:nth-child(1)
+{
+    transform: translateX(-100%);
+    background: linear-gradient(-90deg,#6a040f,transparent);
+}
+.limg{
+    max-width: 40%;
+    margin-left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+}
+#card{
+    margin: 1px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+}
+#card .c_cards{
+    opacity: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+#card .c_cards .ele_g1{
+    flex-grow: 1;
+    color: transparent;
+}
+.bgpic{
+    top: 0px;
+    left: 0px;
+    background: url(bacground.jpg) no-repeat;
+    position: fixed;
+    z-index: -1;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+#card .c_cards .ele{
+    border: 2px solid #ffffff7f;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+#card .c_cards .ele:hover{
+    border-color: black;
+}
+#card .event_df{
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.5s;
+    color: black;
+    background: #eeeeeeaf;
+}
+#card .event_df .con{
+    display: block;
+    text-align: center;
+}
+#card h2{
+    text-align: center;
+}
+#inject_card{
+    position: absolute;
+    background: transparent;
+}
+#and_dwd{
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#and_dwd h6{
+    text-align: center;
+    font-size: 1rem;
+}
+#and_dwd button{
+    margin-left: 10px;
+    background: #0a0;
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    font-size: 0.9rem;
+}
+@media only screen and (max-width:440px)
+{
+    .fdiv{
+        transform: scaleX(0.99);
+    }
+}
+@media only screen and (max-width:400px)
+{
+    .fdiv .mob,
+    .fdiv .mob .mobi{
+        min-width: 120px;
+        min-height: 240px;
+    }
+    .fdiv .mob .mobi{
+        min-width: 100px;
+        min-height: 220px;
+    }
+    .fdiv .mob .absimg img{
+        max-width: 220px;
+        transform-origin: 0 0;
+        transform: translateX(5%) scaleY(1.2);
+    }
+    .fdiv .mob .mobbot .play{
+        font-size: 1rem;
+    }
+}
+@media only screen and (max-width:600px)
+{
+    .fdiv .mob,
+    .fdiv .mob .mobi{
+        min-width: 170px;
+        min-height: 340px;
+    }
+    .fdiv .mob .mobi{
+        min-width: 150px;
+        min-height: 320px;
+    }
+    .fdiv .mob .absimg img{
+        max-width: 290px;
+        transform-origin: 0 0;
+        transform: translateX(5%) scaleY(1.2);
+    }
+    .fdiv .mob .mobbot .play{
+        padding: 2px 15px;
+        font-size: 1.2rem;
+    }
+}
+@media only screen and (min-width:600px)
+{
+    .fdiv .mob,
+    .fdiv .mob .mobi{
+        min-width: 220px;
+        min-height: 440px;
+    }
+    .fdiv .mob .mobi{
+        min-width: 200px;
+        min-height: 420px;
+    }
+    .fdiv .mob .absimg img{
+        max-width: 340px;
+        transform-origin: 0 0;
+        transform: translateX(5%) scaleY(1.4);
+    }
+    .fdiv .mob .mobbot .play{
+        padding: 5px 20px;
+        font-size: 1.2rem;
+    }
+}
+@media only screen and (min-width:700px)
+{
+    .fdiv .mob,
+    .fdiv .mob .mobi{
+        min-width: 220px;
+        min-height: 440px;
+    }
+    .fdiv .mob .mobi{
+        min-width: 200px;
+        min-height: 420px;
+    }
+    .fdiv .mob .absimg img{
+        max-width: 340px;
+        transform-origin: 0 0;
+        transform: translateX(5%) scaleY(1.6);
+    }
+    .fdiv .mob .mobbot .play{
+        padding: 5px 20px;
+        font-size: 1.3rem;
+    }
+}
+@media only screen and (min-width:800px)
+{
+    .fdiv .mob,
+    .fdiv .mob .mobi{
+        min-width: 280px;
+        min-height: 560px;
+    }
+    .fdiv .mob .mobi{
+        min-width: 260px;
+        min-height: 540px;
+    }
+    .fdiv .mob .absimg img{
+        max-width: 400px;
+        transform-origin: 0 0;
+        transform: translateX(5%) scaleY(1.5);
+    }
+    .fdiv .mob .mobbot .play{
+        padding: 10px 40px;
+        font-size: 2rem;
+    }
+    .comment{
+        width: 60%;
+    }
+}
