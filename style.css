@@ -7,6 +7,9 @@
     font-family: 'Alegreya', serif;
     font-family: 'Alegreya Sans', sans-serif;
 }
+#c_d{
+    flex-grow: 1;
+}
 a{
     color: black;
     text-decoration: none;
@@ -380,6 +383,18 @@ body{
     left: 50%;
     transform: translateX(-50%);
     transition: all 0.5s;
+    background: url(rrlogo.png) no-repeat;
+    background-size: cover;
+}
+.comment .bglayerc{
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: -1;
+    border-radius: 20px;
+    background: #ffffffaf;
 }
 .comment .chead{
     font-size: 2rem;
@@ -402,12 +417,38 @@ body{
     margin: 2px;
     padding: 4px;
     border: 1px solid grey;
-    overflow:hidden;
+    overflow: hidden;
+}
+.comment .cmts .cele.s{
+    background: url(rrlogo.png) no-repeat;
+    background-size: cover;
+    background-color: #ffffffaf;
+    background-blend-mode: color;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.comment .cmts .cele.s .ele.n{
+    font-size: 1.4rem;
+    font-weight: bolder;
 }
 .comment .cmts .cele .df{
     display: flex;
 }
 .comment .cmts .cele .df .ele{
+    flex-grow: 1;
+}
+.comment .cmts .cele.s .ele{
+    flex-grow: 1;
+    text-align: center;
+    margin: 5px;
+}
+.comment .cmts .cele.s{
+    margin: 10px;
+}
+.comment .cmts .cele.s .df{
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
     flex-grow: 1;
 }
 
