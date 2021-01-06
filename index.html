@@ -1,1 +1,257 @@
-"Hello World"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , minimum-scale=1.0 , maximum-scale=1.0">
+    <title>RajpathRecalls</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya&family=Alegreya+Sans&display=swap" rel="stylesheet">
+</head>
+<body onload="init()" onresize="resize()">
+    <div class="bgpic"></div>
+    <div class="shrink">
+        <div class="ndiv">
+            <div class="odiv">
+                <div class="topbar">
+                    <div class="b" onclick="menu.switchstate()">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="mdiv" id="mdiv">
+                    <a href="#_home"><div class="ele" onclick="menu.call()">Listen</div></a>
+                    <a href="#_aboutus"><div class="ele" onclick="menu.call()">About Us</div></a>
+                    <a href="#_events"><div class="ele" onclick="menu.call()">Events</div></a>
+                    <a href="#_rar"><div class="ele" onclick="menu.call()">Recall and Request</div></a>
+                    <a href="#_contactus"><div class="ele" onclick="menu.call()">Contact Us</div></a>
+                </div>
+            </div>
+        </div>
+        <div class="fdiv"></div>
+        <div class="fdiv" id="_home">
+            <div class="mob">
+                <div class="mobi">
+                    <div id="mobi">
+                        <div class="mplay">
+                            <div class="nplay">
+                                <img src="rrlogo.png" alt="" srcset="">
+                                <div class="oplay" onclick="play()" id="ch_main_p">
+                                    <i class="fab fa-play fa"></i>
+                                </div>
+                                <div>
+                                    <marquee>
+                                        <h4 id="cur_event">Music Cloud - 1000+ Songs</h4>
+                                    </marquee>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="msg" id="noti">Connection Established</div>
+                    </div>
+                </div>
+                <div class="mobbot">
+                    <div class="play s" onclick="sync()">
+                        <i></i>
+                        <div class="sync">
+                            <!--SYNC-->
+                        </div>
+                    </div>
+                    <div class="play"></div>
+                    <div class="play" onclick="comments.open()"><i class="fab fa-comments fa"></i></div>
+                </div>
+                <div class="head_i">
+                    <div class="inil">
+                        <img src="st_rr.png">
+                    </div>
+                </div>
+            </div>
+            <div class="othmob">
+                <div class="othmobc">
+                    <div class="rrmobh">
+                        <div class="raj">Rajpath</div>
+                        <div class="rec">Recalls</div>
+                        <p align="center">Tune in to be levitated <br>into the <br>Rajpath Nirvana.</p>
+                    </div>
+                    <div class="cbox" id="cbox" onclick="comments.open()">
+                        <!--Inject-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fdiv">
+            <!--<img src="pin_.png" alt="" srcset="" class="img_">-->
+        </div>
+        <div class="joint t1">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="fdiv" id="_aboutus">
+            <div class="g1 c">
+                <div class="conhead"><h3>about us</h3></div>
+                <hr>
+                <p> The Rajpath RECalls Web App is for radio broadcasting events happening in and related to NIT
+                    Calicut, which is conducted for and by the students.
+                    This is a broadcasting open-source web app, with multiple features including:
+                    <ul>
+                    <li>Real-time update of events and its schedule</li>
+                    <li>Live comment section</li>
+                    <li>Play-in background set-up</li>
+                    <li>Accessible from the notification bar</li>
+                    <li>Ad-free</li>
+                    <li>Responsive to all devices</li>
+                </p>
+            </div>
+            <div class="g1 l1 r"> 
+                <div class="wire r"></div>
+            </div>
+            <div class="g1 img">
+                <div class="g1_img_abs">
+                    <img src="images/about/3.png" alt="" srcset="">
+                </div>
+            </div>
+        </div>
+        <div class="joint t1">
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="fdiv" id="_events">
+            <div class="g1 img">
+                <div class="g1_img_abs">
+                    <img src="images/err/10.png" alt="" srcset="">
+                </div>
+            </div>
+            <div class="g1 l1 l"> 
+                <div class="wire l"></div>
+            </div>
+            <div class="g1 c">
+                <div class="conhead"><h3>Events</h3></div>
+                <hr>
+                <div id="card">
+                    <div id="inject_card">
+                        <!--Inject absolute-->
+                        <!--Max length data is put as dummy background-->
+                        <div class="df">
+                            <div class="con">
+                                <h2>The not so funny show</h2>
+                                <p> The world is filled with commotion and uncertainty, and in the midst of
+                                    that, there are different opinions that often go unheard. This is where we come together
+                                    and share views on topics within our own campus and beyond. What is the prerequisite
+                                    for this show you may ask… Well, all you need is an open mind and unfiltered thoughts.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>The not so funny show</h2>
+                    <p> The world is filled with commotion and uncertainty, and in the midst of
+                        that, there are different opinions that often go unheard. This is where we come together
+                        and share views on topics within our own campus and beyond. What is the prerequisite
+                        for this show you may ask… Well, all you need is an open mind and unfiltered thoughts.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="joint t1">
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="fdiv" id="_rar">
+            <div class="g1 c">
+                <div class="conhead"><h3> RECall and Request</h3></div>
+                <hr>
+                <p> A radio without its listeners is like food without salt and spices. We would love to be able to
+                    connect with all of our listeners and help improve your experience.
+                    Here you will find a <a href="https://forms.gle/ZnMw9rX1yKfxeNBS6">google form</a> where you can make song requests, song dedications for
+                    Serenade, share stories for our Chai Un-Cut or give topics to be discussed in Unfiltered.
+                </p>
+            </div>
+            <div class="g1 l1 r"> 
+                <div class="wire r"></div>
+            </div>
+            <div class="g1 img">
+                <div class="g1_img_abs">
+                    <img src="images/err/5.png" alt="" srcset="">
+                </div>
+            </div>
+        </div>
+        <div class="joint t1">
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="fdiv" id="_contactus">
+            <div class="g1 img">
+                <div class="g1_img_abs">
+                    <img src="images/contact/3.png" alt="" srcset="">
+                </div>
+            </div>
+            <div class="g1 l1 l"> 
+                <div class="wire l"></div>
+            </div>
+            <div class="g1 c">
+                <div class="conhead"><h3>Contact US</h3></div>
+                <hr>
+                <p>Any new venture can grow only with the help of constant feedback. Feel free to contact us</p>
+                <p><i><a href="mailto:rajapathrecalls@gmail.com">rajapathrecalls@gmail.com</a></i></p>
+                <div class="con_df">
+                    <div class="ele">
+                        <a href="https://www.instagram.com/rajpath.recalls_nitc/"><i class="fab fa-instagram fa"></i></a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://in.linkedin.com/in/rajpath-recalls-radio-976757200"><i class="fab fa-linkedin fa"></i></a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://www.facebook.com/rajpath.recalls"><i class="fab fa-facebook fa"></i></a>
+                    </div>
+                    <div class="ele">
+                        <a href="https://github.com/rajpathrecalls"><i class="fab fa-github fa"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="joint t1">
+            <span></span>
+            <span></span>
+        </div>
+        <img src="ear_p.png" class="limg">
+        <div class="fdiv f"></div>
+    </div>
+    <div class="layer" onclick="comments.close()">
+    </div>
+    <div class="comment">
+        <div class="chead">
+            <i class="fab fa-comments fa"></i>
+            <div class="close" onclick="comments.close()">close</div>
+        </div>
+        <hr>
+        <div class="editname" id="editname">
+            <div class="clayer" onclick="comments.close()"></div>
+            <div class="cc">
+                <h2>Choose your username</h2>
+                <input type="text" id="name" placeholder="Dev123">
+                <div class="df">
+                    <div class="ele" onclick="comments.set_new_name()">OKAY</div>
+                    <div class="ele" onclick="comments.show(false)">CANCEL</div>
+                </div>
+            </div>
+        </div>
+        <div class="cmts" id="cmts">
+            <!--Inject-->
+        </div>
+        <hr>
+        <div class="imflex">
+            <input type="text" id="msg" placeholder="Type Something..." onkeyup="comments.switchstate(true)" onabort="comments.switchstate(true)">
+            <div id="bt" onclick="comments.do_fn()"><i class="fab fa-edit fa"></i></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+
+    <script src="index.js"></script>
+</body>
+</html>
