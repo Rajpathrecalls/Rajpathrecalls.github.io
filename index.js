@@ -54,7 +54,7 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     sanapshot.forEach((childsnap) => {
     sch.push(childsnap.val());
     });
-    sch.sort((a,b)=>{return comments.convert(a.when)<comments.convert(b.when)?-1:1});
+    sch.sort((a,b)=>{return a.time<b.time?-1:1});
     if(comments.opened=="schedule")
         comments.add_schedule();
 });
@@ -144,28 +144,54 @@ var comments={
         var today=[];
         for(var i=0;i<sch.length;i++)
         {
-            //var date=new Date(res[i].time).toLocaleTimeString();
-            var d=new Date(this.convert(sch[i].when));
+            var d=new Date(sch[i].time);
             var _d=new Date();
             if(d.toDateString()==_d.toDateString()){
+                //if(_d.getTime()>(d.getTime()+sch[i].dur*60*1000))
+                    //continue;
                 today.push(sch[i]);
             }
         }
+        this.cmts.innerHTML=`
+        <div class="cele s">
+            <div class="df">
+                <div class="ele n">${new Date().toDateString()}</div>
+            </div>
+            <div class="ele">Upcoming Events</div>
+        </div>
+            `;
+        var count=0;
         for(var i=0;i<today.length;i++){ 
-            var d=new Date(this.convert(today[i].when));
+            var _d=new Date();
+            if(_d.getTime()>today[i].time){
+                continue;
+            }
+            count++;
+            var d=new Date(today[i].time);
+            var d_=new Date(today[i].time+today[i].dur*60*1000);
             this.cmts.innerHTML+=`
             <div class="cele s">
                 <div class="df">
                     <div class="ele n">${today[i].main}</div>
                 </div>
                 <div class="ele">${today[i].sub}</div>
-                <div class="ele">${d.toDateString()}</div>
-                <div class="ele">${d.toLocaleTimeString()}</div>
+                <div class="ele">${d.toLocaleTimeString().split(" ")[0] +" to "+d_.toLocaleTimeString().split(" ")[0]+" "+d.toLocaleTimeString().split(" ")[1]}</div>
             </div>
             `;
         }
+        if(count==0){
+            this.cmts.innerHTML=`
+            <div class="cele s">
+                <div class="df">
+                    <div class="ele n">${new Date().toDateString()}</div>
+                </div>
+                <div class="ele">There are no scheduled events at the moment.Feel free to listen to some great tunes.</div>
+            </div>
+                `;
+        }
     },
     convert(str){ 
+        //For when
         var a=str.split(" ")[0]; 
         var b=str.split(" ")[1]; 
         var t=new Date(Number(a.split("-")[0]),Number(a.split("-")[1])-1,Number(a.split("-")[2]),Number(b.split(":")[0]),Number(b.split(":")[1]),0,0); 
@@ -309,7 +335,7 @@ var comments={
         this.scrollbot();
         this.layer.style.background="#000000af";
         comments.add_schedule();
-        this.opened="scheduke";
+        this.opened="schedule";
 
     },
     scrollbot()
