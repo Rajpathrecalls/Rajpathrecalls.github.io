@@ -64,7 +64,7 @@ firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
     console.log("Users Online : "+OnlineUsers);
 });
 var ref=firebase.database().ref('ActiveUsers/').push({
-    platform:"web-web.app"
+    platform:"web-github.io"
 });
 //console.log(ref.key);
 ref.onDisconnect().remove();
