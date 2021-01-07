@@ -186,17 +186,18 @@ var comments={
         }
         for(var i=0;i<temp.length;i++)
         {
+            var msg=temp[i].message;
             if(temp[i].message.length>12){
-                temp[i].message=temp[i].message.substr(0,12)+" ...";
+                msg=temp[i].message.substr(0,12)+" ...";
             }
             if(temp[i].message.length==0)
-                temp[i].message=".";
+                continue;
             var date=new Date(temp[i].time).toLocaleTimeString();
             this.cbox.innerHTML+=`
             <div class="cele__">
                 <div class="cname">${temp[i].sender}</div>
                 <div class="df">
-                    <div class="cmsg">${temp[i].message}</div>
+                    <div class="cmsg">${msg}</div>
                     <div class="time">${date.split(":")[0]+":"+date.split(":")[1]+" "+date.split(" ")[1]}</div>
                 </div>
             </div>
