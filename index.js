@@ -42,7 +42,7 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
     res.push(childsnap.val());
     });
     comments.set_cmt_sh();
-    if(comments.isopen=="comment")
+    if(comments.opened=="comment")
         comments.add_comments();
 });
 firebase.database().ref("CurEvent").on('value',(val)=>{
@@ -55,7 +55,7 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     sch.push(childsnap.val());
     });
     sch.sort((a,b)=>{return comments.convert(a.when)<comments.convert(b.when)?-1:1});
-    if(comments.isopen=="schedule")
+    if(comments.opened=="schedule")
         comments.add_schedule();
 });
 var OnlineUsers;
@@ -617,6 +617,12 @@ var isandroid={
         var userAgent=navigator.userAgent||navigator.vendor;
         if(userAgent.match( /Android/i ))
         {
+            /*
+            window.location.replace("yourapp://path/"); 
+            setTimeout(()=>{
+            window.location.replace("https://play.google.com/store/apps/details?id=com.nitc.rajpathrecalls"); 
+            },2000);
+            */
             this.init();
         }
     },
