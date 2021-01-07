@@ -42,6 +42,8 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
     res.push(childsnap.val());
     });
     comments.set_cmt_sh();
+    if(comments.isopen=="comment")
+        comments.add_comments();
 });
 firebase.database().ref("CurEvent").on('value',(val)=>{
     document.getElementById("cur_event").innerHTML=val.val();
@@ -53,7 +55,8 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     sch.push(childsnap.val());
     });
     sch.sort((a,b)=>{return comments.convert(a.when)<comments.convert(b.when)?-1:1});
-    comments.add_schedule();
+    if(comments.isopen=="schedule")
+        comments.add_schedule();
 });
 var OnlineUsers;
 firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
@@ -111,6 +114,7 @@ var comments={
         this.set_name(this.name);
         this.canbesynced=false;
         this.init_headphone();
+        this.opened="none";
     },
     add_comments(){
         document.getElementsByClassName("imflex")[0].style.opacity=1;
@@ -283,6 +287,7 @@ var comments={
         this.isopen=false;
         this.layer.style.zIndex="-1";
         this.layer.style.background="transparent";
+        this.opened="none";
     },
     open()
     {
@@ -293,6 +298,7 @@ var comments={
         this.scrollbot();
         this.layer.style.background="#000000af";
         comments.add_comments();
+        this.opened="comment";
     },
     open_cal(){
         if(this.isopen)return;
@@ -302,6 +308,7 @@ var comments={
         this.scrollbot();
         this.layer.style.background="#000000af";
         comments.add_schedule();
+        this.opened="scheduke";
 
     },
     scrollbot()
