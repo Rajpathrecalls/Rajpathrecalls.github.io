@@ -44,6 +44,10 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
     comments.set_cmt_sh();
     if(comments.opened=="comment")
         comments.add_comments();
+    else{
+        var plays=document.getElementsByClassName("play");
+        plays[2].children[0].children[0].style.opacity=1;
+    }
 });
 firebase.database().ref("CurEvent").on('value',(val)=>{
     document.getElementById("cur_event").innerHTML=val.val();
@@ -57,6 +61,10 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     sch.sort((a,b)=>{return a.time<b.time?-1:1});
     if(comments.opened=="schedule")
         comments.add_schedule();
+    else{        
+        var plays=document.getElementsByClassName("play");
+        plays[1].children[0].children[0].style.opacity=1;
+    }
 });
 var OnlineUsers;
 firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
@@ -117,6 +125,8 @@ var comments={
         this.opened="none";
     },
     add_comments(){
+        var plays=document.getElementsByClassName("play");
+        plays[2].children[0].children[0].style.opacity=0;
         document.getElementsByClassName("imflex")[0].style.opacity=1;
         document.getElementById("c_d").innerHTML=`<i class="fab fa-comments fa"></i>`;
         this.cmts.innerHTML="";
@@ -137,6 +147,8 @@ var comments={
         this.scrollbot();
     },
     add_schedule(){
+        var plays=document.getElementsByClassName("play");
+        plays[1].children[0].children[0].style.opacity=0;
         //[{"main":"Music Cloud","sub":"1000+ Songs","link":"images/favicon.png","when":""}
         document.getElementsByClassName("imflex")[0].style.opacity=0;
         document.getElementById("c_d").innerHTML=`<i class="fab fa-calendar fa"></i>`;
@@ -423,6 +435,13 @@ var comments={
         plays[0].children[0].style.width=l;
         plays[0].children[0].style.height=l;
         this.show_sync();
+        for(var i=1;i<plays.length;i++){
+            var not=plays[i].children[0].children[0];
+            var y=plays[i].children[0].offsetHeight;
+            var x=plays[i].children[0].offsetWidth-5;
+            not.style.transform=`translate(${x}px,-${y}px)`;
+            not.style.opacity=0;
+        }
     },
     show_sync(show=false)
     {
