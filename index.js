@@ -824,7 +824,7 @@ var links;
 firebase.database().ref('Links/').on('value',(sanapshot)=>{
     links=sanapshot.val();
     if(boolplay)
-            sync();
+            sync(true);
 });
 
 function initplayer()
@@ -834,9 +834,9 @@ function initplayer()
     newplayer.src=srclink;
     return newplayer;
 }
-function sync()
+function sync(force=false)
 {
-    if(!comments.canbesynced)
+    if(!comments.canbesynced && !force)
         return;
     lagging=0;
     oldplayer=player;
