@@ -51,9 +51,8 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
 });
 firebase.database().ref("CurEvent").on('value',(val)=>{
     var _val="Music Cloud - 1000+Songs"
-    if(val.val()=="unset")
+    if(val.val()!="unset")
         _val=val.val();
-    _val=comments.cur_event();
     document.getElementById("cur_event").innerHTML=_val;
 });
 var sch=[];
@@ -153,9 +152,8 @@ var comments={
     },
     add_schedule(forced=false){
         var plays=document.getElementsByClassName("play");
-        if(!forced)
-            plays[1].children[0].children[0].style.opacity=0;
         //[{"main":"Music Cloud","sub":"1000+ Songs","link":"images/favicon.png","when":""}
+        plays[1].children[0].children[0].style.opacity=0;
         document.getElementsByClassName("imflex")[0].style.opacity=0;
         document.getElementById("c_d").innerHTML=`<i class="fab fa-calendar fa"></i>`;
         this.cmts.innerHTML="";
@@ -205,6 +203,9 @@ var comments={
                 <div class="ele">${d.toLocaleTimeString().split(" ")[0] +" to "+d_.toLocaleTimeString().split(" ")[0]+" "+d.toLocaleTimeString().split(" ")[1]}</div>
             </div>
             `;
+            if(forced && !comments.open=="schedule"){
+                plays[1].children[0].children[0].style.opacity=1;
+            }
         }
         if(count==0){
             this.cmts.innerHTML=`
