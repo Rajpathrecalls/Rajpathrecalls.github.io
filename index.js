@@ -50,7 +50,11 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
     }
 });
 firebase.database().ref("CurEvent").on('value',(val)=>{
-    document.getElementById("cur_event").innerHTML=val.val();
+    var _val="Music Cloud - 1000+Songs"
+    if(val.val()=="unset")
+        _val=val.val();
+    _val=comments.cur_event();
+    document.getElementById("cur_event").innerHTML=_val;
 });
 var sch=[];
 firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
@@ -65,6 +69,7 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
         var plays=document.getElementsByClassName("play");
         plays[1].children[0].children[0].style.opacity=1;
     }
+    comments.add_schedule(true);
 });
 var OnlineUsers;
 firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
@@ -146,9 +151,10 @@ var comments={
         }
         this.scrollbot();
     },
-    add_schedule(){
+    add_schedule(forced=false){
         var plays=document.getElementsByClassName("play");
-        plays[1].children[0].children[0].style.opacity=0;
+        if(!forced)
+            plays[1].children[0].children[0].style.opacity=0;
         //[{"main":"Music Cloud","sub":"1000+ Songs","link":"images/favicon.png","when":""}
         document.getElementsByClassName("imflex")[0].style.opacity=0;
         document.getElementById("c_d").innerHTML=`<i class="fab fa-calendar fa"></i>`;
@@ -174,13 +180,22 @@ var comments={
             `;
         var count=0;
         for(var i=0;i<today.length;i++){ 
-            var _d=new Date();
-            if(_d.getTime()>today[i].time){
-                continue;
-            }
+            var _d=new Date(new Date().getTime());
+            console.log(_d.toLocaleTimeString());
             count++;
             var d=new Date(today[i].time);
             var d_=new Date(today[i].time+today[i].dur*60*1000);
+            if(_d.getTime()>d_.getTime()){
+                continue;
+            }
+            if(_d.getTime()<d_.getTime()){
+                if(_d.getTime()>today[i].time){
+                    var _event=today[i].main+" - "+today[i].sub;
+                    if(links.mediaLink=="https://zeno.fm/events39d6np5v0f8uv/"){
+                        document.getElementById("cur_event").innerHTML=_event;
+                    }
+                }
+            }
             this.cmts.innerHTML+=`
             <div class="cele s">
                 <div class="df">
