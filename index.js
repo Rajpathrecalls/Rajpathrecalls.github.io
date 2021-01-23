@@ -9,6 +9,7 @@ async function init()
     mobile.init();
     isandroid.check();
     menu.init();
+    USER.init();
     await FireBase.init();
     onbodyloadcompletly=true;
 }
@@ -84,6 +85,41 @@ var ref=firebase.database().ref('ActiveUsers/').push({
 //console.log(ref.key);
 ref.onDisconnect().remove();
 
+var USER={
+    init()
+    {
+        this.is_user_exsist=false;
+        this.getuser();
+        if(this.is_user_exsist)
+        {
+            this.remove_login();
+            console.log("y");
+        }
+    },
+    getuser()
+    {
+        var user = firebase.auth().currentUser;
+        //Change Code Latervar user = firebase.auth().currentUser;
+        if (user) {
+            // User is signed in.
+            this.is_user_exsist=true;
+        } 
+        else{
+            // No user is signed in.
+            this.is_user_exsist=false;
+        }
+        return user;
+    }
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        USER.getuser();
+        USER.is_user_exsist=true;
+    } else {
+        //No User
+    }
+});
 var FireBase={
     async init()
     {
@@ -98,6 +134,9 @@ var FireBase={
     {
         var ar=[];
         ar["sender"]=comments.name;
+        if(USER.is_user_exsist){
+            ar["sender"]=comments.name+" ✅";
+        }
         ar["message"]=msg;
         var curdate=new Date;
         ar["time"]=curdate.getTime();
@@ -274,19 +313,20 @@ var comments={
     },
     isvalidname()
     {
+        var regex=/^[a-zA-Z0-9]+(?:_[A-Za-z0-9]+)*$/;
         var valid=false;
         var ar=[];
         var nm=this.namediv.value;
         nm=this.trim_f(nm);
         nm=this.trim_l(nm);
         nm=nm.split(" ")[0];
-        if(nm.length>5)
+        if(nm.length>5 && nm.match(regex))
         {
             valid=true;
         }
         else
         {
-            nm="Invalid Username";
+            nm=iniuser.get_ran_name();
         }
         ar.push(valid);
         ar.push(nm);
