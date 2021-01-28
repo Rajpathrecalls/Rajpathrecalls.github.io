@@ -10,6 +10,7 @@ async function init()
     isandroid.check();
     menu.init();
     USER.init();
+    dynamic.init();
     await FireBase.init();
     onbodyloadcompletly=true;
 }
@@ -50,12 +51,16 @@ firebase.database().ref('Chat/').on('value',(sanapshot)=>{
         plays[2].children[0].children[0].style.opacity=1;
     }
 });
+/*
 firebase.database().ref("CurEvent").on('value',(val)=>{
     var _val="Music Cloud - 1000+Songs"
     if(val.val()!="unset")
         _val=val.val();
     document.getElementById("cur_event").innerHTML=_val;
 });
+*/
+var TraceSchedule="Music Cloud - 1000+Songs";
+
 var sch=[];
 firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     sch=[];
@@ -71,6 +76,7 @@ firebase.database().ref('Schedule/').on('value',(sanapshot)=>{
     }
     comments.add_schedule(true);
 });
+
 var OnlineUsers;
 firebase.database().ref('ActiveUsers/').on('value',(sanapshot)=>{
     OnlineUsers=0;
@@ -85,6 +91,8 @@ var ref=firebase.database().ref('ActiveUsers/').push({
 //console.log(ref.key);
 ref.onDisconnect().remove();
 
+
+
 var USER={
     init()
     {
@@ -92,8 +100,7 @@ var USER={
         this.getuser();
         if(this.is_user_exsist)
         {
-            this.remove_login();
-            console.log("y");
+            console.log("User Exisists");
         }
     },
     getuser()
@@ -222,16 +229,16 @@ var comments={
             count++;
             var d=new Date(today[i].time);
             var d_=new Date(today[i].time+today[i].dur*60*1000);
-            if(_d.getTime()>d_.getTime()){
-                continue;
-            }
-            if(_d.getTime()<d_.getTime()){
-                if(_d.getTime()>today[i].time){
+            if(_d.getTime()<=d_.getTime()){
+                if(_d.getTime()>=today[i].time-5*1000){//5s offset
                     var _event=today[i].main+" - "+today[i].sub;
                     if(links.mediaLink=="https://zeno.fm/events39d6np5v0f8uv/"){
-                        document.getElementById("cur_event").innerHTML=_event;
+                        TraceSchedule=_event;
                     }
                 }
+            }
+            if(_d.getTime()>d_.getTime()){
+                continue;
             }
             this.cmts.innerHTML+=`
             <div class="cele s">
@@ -255,6 +262,19 @@ var comments={
                 <div class="ele">There are no scheduled events at the moment.Feel free to listen to some great tunes.</div>
             </div>
                 `;
+        }
+    },
+    get_cur_schedule(){
+        for(var i=0;i<sch.length;i++)
+        {
+            var d=new Date(sch[i].time);
+            var _d=new Date();
+            if(d.toDateString()==_d.toDateString()){
+                var mid=d.getTime()+sch[i].dur*60*500;
+                if(Math.abs(mid - _d.getTime())<sch[i].dur*60*500){
+                    TraceSchedule=sch[i].main+" - "+ach[i].sub;
+                }
+            }
         }
     },
     convert(str){ 
@@ -881,10 +901,18 @@ firebase.database().ref('Links/').on('value',(sanapshot)=>{
     links=sanapshot.val();
     if(boolplay)
             sync(true);
+    document.getElementById("cur_event").innerHTML=TraceSchedule;
+    if(links.mediaLink!="https://zeno.fm/events39d6np5v0f8uv/"){
+        comments.get_cur_schedule();
+        document.getElementById("cur_event").innerHTML="Music Cloud - 1000+ Songs";
+    }
 });
 
 function initplayer()
 {
+    if(links==undefined){
+        return false;
+    }
     var srclink=links.mediaLink;
     var newplayer=new Audio;
     newplayer.src=srclink;
@@ -908,6 +936,10 @@ function play()
     if(player==null && !loadinganewplayeralready)
     {
         newplayer=initplayer();
+        if(!newplayer){
+            console.log("Not completly loaded");
+            return;
+        }
         boolplay=false;
         loadinganewplayeralready=true;
     }
@@ -928,10 +960,7 @@ function play()
        //console.log("Pausing leads to lagging");
        comments.show_sync(true);
     }
-    else{/*
-        bird1.style.opacity=1;
-        bird2.style.opacity=1;
-        Messagebox("Establishing Connection...","","#0f0","green",0);*/
+    else{
         if(lagging==0)
         {
             //console.log("Establishing Connection...");
@@ -955,15 +984,6 @@ function play()
                     player=newplayer;
                     boolplay=true;
                     btn.innerHTML=`<i class="fab fa-pause fa"></i>`;
-                    /*
-                    Messagebox("Connected Sucessfully","","#0f0","green",2);
-                    wave.style.animation="wave 1s linear infinite";
-                    playbar=true;
-                    load.classList.remove("load");
-                    bird1.style.opacity=0;
-                    bird2.style.opacity=0; 
-                    */
-                    //console.log("Connected Sucessfully...");
                     noti.msg("Connected Sucessfully...","white",2000);
                     loadinganewplayeralready=false;
                     return;
@@ -973,14 +993,7 @@ function play()
                     {
                         //need to change this piece of code
                         oldplayer.pause();
-                    }/*
-                    Messagebox("Network issue dectected","Retry","red","orange",0);
-                    wave.style.animation="none";
-                    playbar=false;
-                    load.classList.remove("load");
-                    bird1.style.opacity=0;
-                    bird2.style.opacity=0;
-                    */
+                    }
                     btn.innerHTML=`<i class="fab fa-play fa"></i>`;
                     //console.log("Network Isuues...");
                     noti.msg("Network Issues...","white");
@@ -997,17 +1010,6 @@ function play()
                 lagging+=(temp-playerpausedat)/1000;
                 boolplay=true;
                 btn.innerHTML=`<i class="fab fa-pause fa"></i>`;
-                /*
-                var lag="Lagging by "+Math.floor(lagging)+"s with livestream";
-                if(lag==0){lag=1};
-                Messagebox(lag,"Sync","red","orange",0);
-                wave.style.animation="wave 1s linear infinite";
-                playbar=true;
-                load.classList.remove("load");
-                bird1.style.opacity=0;
-                bird2.style.opacity=0;
-                */
-               //console.log("Lagging by "+Math.floor(lagging*100)/100+"s with livestream");
                if(lagging>0.4)
                {
                     noti.msg("Lagging by "+Math.floor(lagging*100)/100+"s with livestream","#fff");
@@ -1016,15 +1018,6 @@ function play()
             })
             .catch(error=>{
                 btn.innerHTML=`<i class="fab fa-play fa"></i>`;
-                /*
-                Messagebox("Network issue dectected","Retry","red","orange",0);
-                wave.style.animation="none";
-                playbar=false;
-                load.classList.remove("load");
-                bird1.style.opacity=0;
-                bird2.style.opacity=0;
-                */
-               //console.log("Network Isuue detecetd");
                 return;
             });
         }
@@ -1082,4 +1075,33 @@ if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('pause', function() {
         play();
     });
+}
+
+var dynamic={
+    init(){
+        this.ele=document.getElementById("ch_html");
+        this.cur_interval=null;
+        this.check();
+    },
+    inject(){
+        this.ele.innerHTML=`
+            <marquee>For more intriguing details of this SAC meeting ...Check out our 
+            <a href="https://www.instagram.com/rajpath.recalls_nitc/" class="insta"><i class="fab fa-instagram fa"></i></a> story.
+            </marquee>
+        `;
+    },
+    check(){
+        this.cur_interval=setInterval(()=>{
+            var _d=new Date();
+            var d=new Date(2021,00,28,18,30,00);
+            var dur=30*60*1000;
+            var val=_d.getTime()-d.getTime();
+            if(val>0 && val<dur){
+                dynamic.inject();
+            }
+            else{
+                this.ele.innerHTML="";
+            }
+        },200);
+    }
 }
