@@ -1081,9 +1081,12 @@ var dynamic={
     init(){
         this.ele=document.getElementById("ch_html");
         this.cur_interval=null;
+        this.showing=false;
         this.check();
     },
     inject(){
+        if(dynamic.showing)
+            return;
         this.ele.innerHTML=`
             <marquee>For more intriguing details of this SAC meeting ...Check out our 
             <a href="https://www.instagram.com/rajpath.recalls_nitc/" class="insta"><i class="fab fa-instagram fa"></i></a> story.
@@ -1098,9 +1101,11 @@ var dynamic={
             var val=_d.getTime()-d.getTime();
             if(val>0 && val<dur){
                 dynamic.inject();
+                dynamic.showing=true;
             }
             else{
-                this.ele.innerHTML="";
+                dynamic.ele.innerHTML="";
+                dynamic.showing=false;
             }
         },200);
     }
