@@ -643,6 +643,22 @@ body{
     font-weight: bolder;
     font-size: 0.9rem;
 }
+#ch_html{
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
+#ch_html marquee{
+    font-size: 1.4rem;
+    font-weight: bold;
+    background: white;
+    padding: 10px 0px;
+}
+#ch_html marquee .insta{
+    color: magenta;
+    margin: 0px 10px;
+}
+
 @media only screen and (max-width:440px)
 {
     .fdiv{
