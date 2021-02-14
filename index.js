@@ -33,8 +33,11 @@ var firebaseConfig = {
     measurementId: "G-0LS86C0FPG"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+if(firebase!=undefined)
+{
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+}
 
 var res=[];
 firebase.database().ref('Chat/').on('value',(sanapshot)=>{
@@ -194,6 +197,13 @@ var comments={
             </div>
             `;
         }
+        if(FireBase_error==2){this.cmts.innerHTML+=`
+        <div class="cele">
+            <div class="ele">Unable to reach database due to heavy traffic.</div>
+        </div>
+        `;
+
+        }
         this.scrollbot();
     },
     add_schedule(forced=false){
@@ -262,6 +272,12 @@ var comments={
                 <div class="ele">There are no scheduled events at the moment.Feel free to listen to some great tunes.</div>
             </div>
                 `;
+        }
+        if(FireBase_error==2){this.cmts.innerHTML+=`
+        <div class="cele">
+            <div class="ele">Unable to reach database due to heavy traffic.</div>
+        </div>
+        `;
         }
     },
     get_cur_schedule(){
@@ -908,13 +924,24 @@ firebase.database().ref('Links/').on('value',(sanapshot)=>{
     }
 });
 
+
+var FireBase_error=0;
+
 function initplayer()
 {
     if(links==undefined){
+        FireBase_error++;
+        var srclink="https://zeno.fm/events39d6np5v0f8uv/";
+        var newplayer;
+        if(FireBase_error==2){
+            newplayer=new Audio;
+            newplayer.src=srclink;
+            return newplayer;
+        }
         return false;
     }
-    var srclink=links.mediaLink;
-    var newplayer=new Audio;
+    srclink=links.mediaLink;
+    newplayer=new Audio;
     newplayer.src=srclink;
     return newplayer;
 }
